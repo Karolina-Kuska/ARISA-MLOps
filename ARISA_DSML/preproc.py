@@ -5,6 +5,7 @@ from pathlib import Path
 from kaggle.api.kaggle_api_extended import KaggleApi
 import re
 
+
 def download_data():
     """
     Funkcja ściągająca dane z Kaggle do folderu.
@@ -26,6 +27,7 @@ def download_data():
 
     os.remove(zip_path)
 
+
 def preprocess_data(file_path):
     """
     Funkcja do przetwarzania danych: usuwanie niepotrzebnych kolumn, wypełnianie brakujących wartości
@@ -41,10 +43,10 @@ def preprocess_data(file_path):
 
     # Inżynieria cech
     df["Title"] = df["Name"].apply(lambda x: extract_title(x))
-    pattern = r'([A-Za-z]+)(\d+)'
-    matches = df['Cabin'].str.extractall(pattern)
+    pattern = r"([A-Za-z]+)(\d+)"
+    matches = df["Cabin"].str.extractall(pattern)
     matches.reset_index(inplace=True)
-    result = matches.pivot(index='level_0', columns='match', values=[0, 1])
+    result = matches.pivot(index="level_0", columns="match", values=[0, 1])
     result.columns = [f"{col[0]}_{col[1]}" for col in result.columns]
     df = df.join(result[["0_0", "1_0"]])
     df["1_0"] = df["1_0"].astype(float)
@@ -54,10 +56,10 @@ def preprocess_data(file_path):
 
     return df
 
+
 def extract_title(name):
     """
     Funkcja wyciągająca tytuł z imienia i nazwiska pasażera.
     """
-    match = re.search(r',\s*([\w\s]+)\.', name)
+    match = re.search(r",\s*([\w\s]+)\.", name)
     return match.group(1) if match else None
-    
