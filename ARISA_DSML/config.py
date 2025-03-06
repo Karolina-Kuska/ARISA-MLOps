@@ -1,4 +1,5 @@
 """Config file for module."""
+
 from pathlib import Path
 
 from dotenv import load_dotenv
