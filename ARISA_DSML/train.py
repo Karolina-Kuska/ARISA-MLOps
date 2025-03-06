@@ -1,16 +1,17 @@
-import joblib
+from pathlib import Path  # Dodajemy import Path
+
+import joblib  # Dodajemy import joblib
 import optuna
-from sklearn.model_selection import train_test_split
-from catboost import CatBoostClassifier, Pool, cv
 import plotly.graph_objects as go
-from preproc import preprocess_data, download_data
-from pathlib import Path  # Poprawka: Importuj Path
+from catboost import CatBoostClassifier, Pool, cv
+from preproc import download_data, preprocess_data
+from sklearn.model_selection import train_test_split
 
 
 def train_model(X_train, y_train, categorical_indices):
     """
     Funkcja do trenowania modelu CatBoost z wykorzystaniem optymalizacji hiperparametrów.
-    """
+    """  # noqa: F821
     best_params_path = "results/best_params.pkl"
 
     if not Path(best_params_path).is_file():
@@ -37,10 +38,10 @@ def train_model(X_train, y_train, categorical_indices):
             )
             return model.get_best_score()["validation"]["Logloss"]
 
-        study = optuna.create_study(direction="minimize")
+        study = optuna.create_study(direction="minimize")  # noqa: F821
         study.optimize(objective, n_trials=50)
 
-        joblib.dump(study.best_params, best_params_path)
+        joblib.dump(study.best_params, best_params_path)  # noqa: F821
         params = study.best_params
     else:
         params = joblib.load(best_params_path)

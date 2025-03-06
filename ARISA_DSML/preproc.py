@@ -1,9 +1,10 @@
-import pandas as pd
 import os
+import re
 import zipfile
 from pathlib import Path
+
+import pandas as pd
 from kaggle.api.kaggle_api_extended import KaggleApi
-import re
 
 
 def download_data():
