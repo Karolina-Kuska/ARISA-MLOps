@@ -12,7 +12,7 @@ import pandas as pd
 from ARISA_DSML.config import DATASET, DATASET_TEST, PROCESSED_DATA_DIR, RAW_DATA_DIR
 
 
-def get_raw_data(dataset:str=DATASET, dataset_test:str=DATASET_TEST)->None:
+def get_raw_data(dataset: str = DATASET, dataset_test: str = DATASET_TEST) -> None:
     api = KaggleApi()
     api.authenticate()
 
@@ -29,14 +29,14 @@ def get_raw_data(dataset:str=DATASET, dataset_test:str=DATASET_TEST)->None:
     Path.unlink(zip_path)
 
 
-def extract_title(name:str)-> str|None:
+def extract_title(name: str) -> str | None:
     """Extract title from passenger name."""
     match = re.search(r",\s*([\w\s]+)\.", name)
 
     return match.group(1) if match else None
 
 
-def preprocess_df(file:str|Path)->str|Path:
+def preprocess_df(file: str | Path) -> str | Path:
     """Preprocess datasets."""
     _, file_name = os.path.split(file)
     df_data = pd.read_csv(file)
@@ -74,7 +74,7 @@ def preprocess_df(file:str|Path)->str|Path:
     return outfile_path
 
 
-if __name__=="__main__":
+if __name__ == "__main__":
     # get the train and test sets from default location
     logger.info("getting datasets")
     get_raw_data()
