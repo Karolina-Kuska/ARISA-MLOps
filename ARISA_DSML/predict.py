@@ -13,8 +13,14 @@ from catboost import CatBoostClassifier
 from loguru import logger
 from mlflow.client import MlflowClient
 
-from ARISA_DSML.config import (FIGURES_DIR, MODEL_NAME, MODELS_DIR,
-                               PROCESSED_DATA_DIR, categorical, target)
+from ARISA_DSML.config import (
+    FIGURES_DIR, 
+    MODEL_NAME, 
+    MODELS_DIR,
+    PROCESSED_DATA_DIR, 
+    categorical, 
+    target,
+)
 from ARISA_DSML.resolve import get_model_by_alias
 
 
