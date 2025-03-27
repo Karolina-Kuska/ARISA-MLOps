@@ -14,7 +14,7 @@ from mlflow.client import MlflowClient
 import json
 
 
-def plot_shap(model:CatBoostClassifier, df_plot:pd.DataFrame)->None:
+def plot_shap(model: CatBoostClassifier, df_plot: pd.DataFrame) -> None:
     """Plot model shapley overview plot."""
     explainer = shap.TreeExplainer(model)
     shap_values = explainer.shap_values(df_plot)
@@ -23,7 +23,7 @@ def plot_shap(model:CatBoostClassifier, df_plot:pd.DataFrame)->None:
     plt.savefig(FIGURES_DIR / "test_shap_overall.png")
 
 
-def predict(model:CatBoostClassifier, df_pred:pd.DataFrame, params:dict)->str|Path:
+def predict(model: CatBoostClassifier, df_pred: pd.DataFrame, params: dict) -> str | Path:
     """Do predictions on test data."""
     feature_columns = params.pop("feature_columns")
 
@@ -36,7 +36,7 @@ def predict(model:CatBoostClassifier, df_pred:pd.DataFrame, params:dict)->str|Pa
     return preds_path
 
 
-if __name__=="__main__":
+if __name__ == "__main__":
     df_test = pd.read_csv(PROCESSED_DATA_DIR / "test.csv")
 
     client = MlflowClient(mlflow.get_tracking_uri())
@@ -51,7 +51,6 @@ if __name__=="__main__":
     log_model_meta = json.loads(run.data.tags['mlflow.log-model.history'])
     log_model_meta[0]['signature']
 
-
     _, artifact_folder = os.path.split(model_info.source)
     logger.info(artifact_folder)
     model_uri = "runs:/{}/{}".format(model_info.run_id, artifact_folder)
@@ -61,5 +60,3 @@ if __name__=="__main__":
     params = run_data_dict["params"]
     params["feature_columns"] = [inp["name"] for inp in json.loads(log_model_meta[0]['signature']['inputs'])]
     preds_path = predict(loaded_model, df_test, params)
-
-
