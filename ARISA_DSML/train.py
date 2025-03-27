@@ -2,29 +2,23 @@
 """Functions to train model."""
 from pathlib import Path
 
-from catboost import CatBoostClassifier, Pool, cv
 import joblib
-from loguru import logger
 import mlflow
-from mlflow.client import MlflowClient
 import optuna
 import pandas as pd
 import plotly.graph_objects as go
+from catboost import CatBoostClassifier, Pool, cv
+from loguru import logger
+from mlflow.client import MlflowClient
 from sklearn.metrics import f1_score, log_loss
 from sklearn.model_selection import train_test_split
 
-from ARISA_DSML.config import (
-    FIGURES_DIR,
-    MODEL_NAME,
-    MODELS_DIR,
-    PROCESSED_DATA_DIR,
-    categorical,
-    target,
-)
+from ARISA_DSML.config import (FIGURES_DIR, MODEL_NAME, MODELS_DIR,
+                               PROCESSED_DATA_DIR, categorical, target)
 from ARISA_DSML.helpers import get_git_commit_hash
 
-
 # comment to trigger workflow ver4
+
 
 def run_hyperopt(X_train: pd.DataFrame, y_train: pd.DataFrame, categorical_indices: list[int], test_size: float = 0.25, n_trials: int = 20, overwrite: bool = False) -> str | Path:  # noqa: PLR0913
     """Run optuna hyperparameter tuning."""

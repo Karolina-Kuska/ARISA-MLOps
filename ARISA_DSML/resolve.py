@@ -1,9 +1,8 @@
-from ARISA_DSML.config import (
-    MODEL_NAME,
-)
 import mlflow
-from mlflow.client import MlflowClient
 from loguru import logger
+from mlflow.client import MlflowClient
+
+from ARISA_DSML.config import MODEL_NAME
 
 
 def get_model_by_alias(client, model_name: str = MODEL_NAME, alias: str = "champion"):
