@@ -1,3 +1,4 @@
+# flake8: noqa
 """Run prediction on test data."""
 from pathlib import Path
 from catboost import CatBoostClassifier

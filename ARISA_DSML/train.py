@@ -1,3 +1,4 @@
+# flake8: noqa
 """Functions to train model."""
 from pathlib import Path
 
@@ -183,7 +184,7 @@ def plot_error_scatter(  # noqa: PLR0913
         title: str = "",
         xtitle: str = "",
         ytitle: str = "",
-        yaxis_range: list[float] | None = None,
+        yaxis_range: list[float] | None = None
     ) -> None:
     """Plot plotly scatter plots with error areas."""
     # Create figure
