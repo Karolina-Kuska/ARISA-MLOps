@@ -9,9 +9,9 @@ import pandas as pd
 import plotly.graph_objects as go
 from catboost import CatBoostClassifier, Pool, cv
 from loguru import logger
-from mlflow.client import MlflowClient
+from mlflow.client import MlflowClient  # type: ignore
 from sklearn.metrics import f1_score, log_loss
-from sklearn.model_selection import train_test_split
+from sklearn.model_selection import train_test_split  # type: ignore
 
 from ARISA_DSML.config import (FIGURES_DIR, MODEL_NAME, MODELS_DIR,
                                PROCESSED_DATA_DIR, categorical, target)
